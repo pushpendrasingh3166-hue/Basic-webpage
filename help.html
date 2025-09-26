@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard Help Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+    }
+
+  
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      background: #2c3e50;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      padding: 15px 20px;
+      color: #bdc3c7;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #34495e;
+      color: #fff;
+    }
+
+    
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      margin-left: 220px;
+    }
+
+    .help-section {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .help-section h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    
+    .faq-item {
+      margin-bottom: 15px;
+    }
+    .faq-item strong {
+      display: block;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .faq-item p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+  
+    .help-section label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+    .help-section input,
+    .help-section textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-family: inherit;
+    }
+    .help-section button {
+      padding: 10px 15px;
+      background: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .support-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .support-links li {
+      margin: 10px 0;
+    }
+    .support-links a {
+      text-decoration: none;
+      color: #2c3e50;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>My Dashboard</h2>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+   
+    <a href="settings.html"><i class="fa-solid fa-sun"></i> Settings</a>
+    <a href="#" class="active"><i class="fa-solid fa-handshake-angle"></i> Help</a>
+    <a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
+  </div>
+
+  <div class="main-content">
+    <h1>Help & Support</h1>
+
+    <div class="help-section">
+      <h3>Frequently Asked Questions</h3>
+      <div class="faq-item">
+        <strong>How can I update my profile?</strong>
+        <p>Go to the Profile page from the sidebar and click on Edit Profile to update your details.</p>
+      </div>
+      <div class="faq-item">
+        <strong>How do I change my password?</strong>
+        <p>Navigate to Settings → Security to change your password securely.</p>
+      </div>
+      <div class="faq-item">
+        <strong>How to contact support?</strong>
+        <p>Use the contact form below or email us at support@example.com.</p>
+      </div>
+    </div>
+
+    <div class="help-section">
+      <h3>Contact Support</h3>
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your Name">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Your Email">
+      <label for="message">Message</label>
+      <textarea id="message" rows="4" placeholder="Write your issue here..."></textarea>
+      <button id="sendMessage">Send Message</button>
+    </div>
+
+    <div class="help-section support-links">
+      <h3>Other Support Links</h3>
+      <ul>
+        <li><a href="#">Visit our Knowledge Base</a></li>
+        <li><a href="#">Community Forum</a></li>
+        <li><a href="#">Report a Bug</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+   <script>
+    document.getElementById('sendMessage').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      
+      if (!name || !email || !message) {
+        alert(' Please fill in all fields.');
+        return;
+       }
+
+      
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/i;
+      if (!emailPattern.test(email)) {
+        alert(' Please enter a valid email address.');
+        return;
+      }
+
+      
+      localStorage.setItem('help_name', name);
+      localStorage.setItem('help_email', email);
+      localStorage.setItem('help_message', message);
+
+      
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+
+      alert(' Your message has been sent! We will contact you soon.');
+    });
+
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('help_name')) {
+        document.getElementById('name').value = localStorage.getItem('help_name');
+      }
+      if (localStorage.getItem('help_email')) {
+        document.getElementById('email').value = localStorage.getItem('help_email');
+      }
+      if (localStorage.getItem('help_message')) {
+        document.getElementById('message').value = localStorage.getItem('help_message');
+      }
+    });
+  </script> 
+</body>
+</html>
