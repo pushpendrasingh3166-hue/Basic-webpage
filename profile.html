@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advanced Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+      background: #2c3e50;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      transition: width 0.3s;
+      z-index: 100;
+    }
+    .sidebar.collapsed {
+      width: 60px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 18px;
+      transition: opacity 0.3s;
+    }
+    .sidebar.collapsed h2 {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .sidebar a {
+      padding: 15px 20px;
+      color: #bdc3c7;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #34495e;
+      color: #fff;
+    }
+
+    .toggle-btn {
+      margin-left: auto;
+      margin-right: auto;
+      cursor: pointer;
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    /* Hide text on collapse */
+    .sidebar.collapsed a span {
+      display: none;
+    }
+    .sidebar.collapsed a {
+      justify-content: center;
+      padding: 15px 0;
+    }
+    .sidebar.collapsed .toggle-btn {
+      margin: 10px auto;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      margin-left: 220px;
+      transition: margin-left 0.3s;
+    }
+    .main-content.collapsed {
+      margin-left: 60px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      max-width: 400px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .profile-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 15px;
+    }
+    .profile-card h3 {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .profile-card p {
+      text-align: center;
+      color: #c266c5;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .profile-details {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.8;
+    }
+    .profile-details strong {
+      color: #4b6b9e;
+    }
+
+    /* Stats */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .stat-card h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #2c3e50;
+    }
+    .stat-card p {
+      margin: 5px 0 0;
+      color: #555;
+    }
+
+    /* Edit Form */
+    .edit-form {
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .edit-form h3 {
+      margin-top: 0;
+    }
+    .edit-form input {
+      width: 95%; 
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .edit-form button {
+      padding: 10px 15px;
+      border: none;
+      background: #2c3e50;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .main-content {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+   
+  </style>
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="toggle-btn" id="toggleSidebar">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+    
+    <h2>My Dashboard</h2>
+    <a href="index.html"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+    <a href="#" class="active"><i class="fa-solid fa-user"></i> <span>Profile</span></a>
+    <a href="settings.html"><i class="fa-solid fa-sun"></i> <span>Settings</span></a>
+    <a href="help.html"><i class="fa-solid fa-handshake-angle"></i> <span>Help</span></a>
+    <a href="logout.html"><i class="fa-solid fa-right-from-bracket"></i> <span>Log out</span></a>
+  </div>
+  
+
+  <div class="main-content" id="mainContent">
+    <h1>Profile Page</h1>
+    <div class="profile-card">
+      <img id="profilePic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqTj7AO5WS4cU_lqk1Ky8IwOA_qugUry7WYw&s" alt="Profile Picture">
+      <h3 id="profileName">Pushpendra Singh</h3>
+      <p id="profileRole">Web Developer</p>
+      <div class="profile-details">
+        <p><strong>Email:</strong> <span id="profileEmail">pushpendra@example.com</span></p>
+        <p><strong>Phone:</strong> <span id="profilePhone">+91 98765 43210</span></p>
+        <p><strong>Location:</strong> <span id="profileLocation">India</span></p>
+      </div>
+    </div>
+
+    <div>
+    <div class="stats-container">
+      <div class="stat-card">
+        <h3>152</h3>
+        <p>Projects</p>
+      </div>
+      <div class="stat-card">
+        <h3>74</h3>
+        <p>Clients</p>
+      </div>
+      <div class="stat-card">
+        <h3>98%</h3>
+        <p>Success Rate</p>
+      </div>
+    </div>
+
+    <div class="edit-form">
+      <h3>Edit Profile</h3>
+      <input type="text" id="editName" placeholder="Name">
+      <input type="text" id="editRole" placeholder="Role">
+      <input type="email" id="editEmail" placeholder="Email">
+      <input type="text" id="editPhone" placeholder="Phone">
+      <input type="text" id="editLocation" placeholder="Location">
+      <button onclick="updateProfile()">Update</button>
+    </div>
+  </div>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    document.getElementById('toggleSidebar').addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      mainContent.classList.toggle('collapsed');
+    });
+
+    function updateProfile(){
+      const name = document.getElementById('editName').value;
+      const role = document.getElementById('editRole').value;
+      const email = document.getElementById('editEmail').value;
+      const phone = document.getElementById('editPhone').value;
+      const location = document.getElementById('editLocation').value;
+
+      if(name) document.getElementById('profileName').textContent = name;
+      if(role) document.getElementById('profileRole').textContent = role;
+      if(email) document.getElementById('profileEmail').textContent = email;
+      if(phone) document.getElementById('profilePhone').textContent = phone;
+      if(location) document.getElementById('profileLocation').textContent = location;
+
+      alert("Profile Updated!");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url("https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJhY2tncm91bmQlMjBuYXR1cmV8ZW58MHx8MHx8fDA%3D");
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.521);
+      padding: 30px;
+      border-radius: 8px;
+      width: 300px;
+    }
+
+    input {
+      width: 100%;  
+      padding: 10px;
+      margin: 5px 0 15px 0; 
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      box-sizing: border-box;
+      height: 50px;
+      color: grey;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      background-color: #4CAF50; 
+      color: white; 
+      padding: 10px 15px; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      width: 100%;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <form id="loginForm">
+    <h2>Login</h2>
+    <input type="text" id="username" required placeholder="Enter your name"><br>
+    <input type="password" id="userpassword" required placeholder="Enter your password"><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    let loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+
+      if (users.length === 0) {
+        alert("No users found. Please register first.");
+        return;
+      }
+
+      let username = document.getElementById("username").value;
+      let userpassword = document.getElementById("userpassword").value;
+
+     
+      let foundUser = users.find(user => user.name === username && user.password === userpassword);
+
+      if (foundUser) {
+        alert("Login Successful");
+        window.location.href = 'index.html';  
+      }
+       else{
+            alert("Login Failed. Incorrect Name or Password.");
+        }
+    });
+  </script>
+</body>
+</html>
+
